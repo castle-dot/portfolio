@@ -1,0 +1,40 @@
+---
+// Edit these whenever you want to feature something new.
+// mediaType: "image" or "video". mediaSrc: a path inside public/, e.g. "/spotlight/feature.jpg"
+const mediaType = "image";
+const mediaSrc = "/spotlight/feature.jpg";
+const title = "Currently recommending";
+const caption = "Replace this with what you're featuring, and swap the media file above.";
+const link = ""; // optional — leave empty for no link
+---
+{link ? (
+  <a href={link} target="_blank" rel="noopener" class="spotlight-frame block reveal">
+    <div class="spotlight-media">
+      {mediaType === "image" ? (
+        <video src={mediaSrc} autoplay muted loop playsinline></video>
+      ) : (
+        <img src={mediaSrc} alt={title} />
+      )}
+    </div>
+    <div class="spotlight-caption">
+      <p class="font-mono text-xs text-sage mb-1">// spotlight</p>
+      <p class="font-display text-lg text-ink">{title}</p>
+      <p class="font-body text-sm text-ink/60 mt-1">{caption}</p>
+    </div>
+  </a>
+) : (
+  <div class="spotlight-frame reveal">
+    <div class="spotlight-media">
+      {mediaType === "video" ? (
+        <video src={mediaSrc} autoplay muted loop playsinline></video>
+      ) : (
+        <img src={mediaSrc} alt={title} />
+      )}
+    </div>
+    <div class="spotlight-caption">
+      <p class="font-mono text-xs text-sage mb-1">// spotlight</p>
+      <p class="font-display text-lg text-ink">{title}</p>
+      <p class="font-body text-sm text-ink/60 mt-1">{caption}</p>
+    </div>
+  </div>
+)}

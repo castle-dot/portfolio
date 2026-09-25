@@ -1,0 +1,32 @@
+---
+// Dreamy ambient layer: soft floating lights drifting in the margins.
+// Uses the .firefly class already defined in global.css.
+// Purely decorative — respects prefers-reduced-motion automatically
+// via the CSS keyframes rule.
+---
+
+<div id="firefly-layer" aria-hidden="true"></div>
+
+<script>
+  const COLORS = ['#D8B471', '#E0968A', '#8FB6A8']; // gold, rose, sage
+  const COUNT = 14;
+
+  function spawnFireflies() {
+    const layer = document.getElementById('firefly-layer');
+    if (!layer) return;
+
+    for (let i = 0; i < COUNT; i++) {
+      const el = document.createElement('div');
+      el.className = 'firefly';
+      const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+      el.style.setProperty('--glow', color);
+      el.style.left = `${Math.random() * 100}vw`;
+      el.style.top = `${Math.random() * 100}vh`;
+      el.style.animationDuration = `${6 + Math.random() * 6}s`;
+      el.style.animationDelay = `${Math.random() * -6}s`; // negative = already mid-flight on load
+      layer.appendChild(el);
+    }
+  }
+
+  spawnFireflies();
+</script>

@@ -1,0 +1,62 @@
+---
+const projects = [
+  {
+    title: "Kiray",
+    description: "Live project — replace this with a one-line description of what it does.",
+    image: "/images/projects/kiray.jpg",
+    live: "https://kiray.pages.dev",
+    github: null,
+  },
+  {
+    title: "Scholarship Board",
+    description: "Live project — replace this with a one-line description of what it does.",
+    image: "/images/projects/scholarship-board.jpg",
+    live: "https://kaleb1get.pythonanywhere.com",
+    github: null,
+  },
+  {
+    title: "Social Media",
+    description: "Replace this with a one-line description of what it does.",
+    image: "/images/projects/social-media.jpg",
+    live: null,
+    github: "https://github.com/castle-dot/social-media",
+  },
+  {
+    title: "Make A Wish",
+    description: "Replace this with a one-line description of what it does.",
+    image: "/images/projects/make-a-wish.jpg",
+    live: null,
+    github: "https://github.com/castle-dot/makeawish",
+  },
+  {
+    title: "Before Google",
+    description: "Replace this with a one-line description of what it does.",
+    image: "/images/projects/before-google.jpg",
+    live: null,
+    github: "https://github.com/castle-dot/Before_Google",
+  },
+  {
+    title: "Heaven's Form",
+    description: "Replace this with a one-line description of what it does.",
+    image: "/images/projects/heavens-form.jpg",
+    live: null,
+    github: "https://github.com/castle-dot/Heaven-s-Form",
+  },
+];
+---
+<section id="projects" class="reveal max-w-4xl mx-auto px-6 py-14">
+  <p class="font-mono text-xs text-sage mb-8">// projects</p>
+  <div class="project-grid grid sm:grid-cols-2 gap-10">
+    {projects.map((p) => (
+      <div class="polaroid">
+        <img src={p.image} alt={p.title} class="w-full aspect-[4/3] object-cover" style="filter: grayscale(8%) sepia(8%);" />
+        <p class="font-display text-lg mt-3 polaroid-title">{p.title}</p>
+        <p class="font-body text-sm mt-1 polaroid-desc">{p.description}</p>
+        <div class="flex gap-4 mt-2 font-mono text-xs">
+          {p.live && <a href={p.live} target="_blank" rel="noopener" class="polaroid-link">&rarr; live</a>}
+          {p.github && <a href={p.github} target="_blank" rel="noopener" class="polaroid-link">&rarr; github</a>}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

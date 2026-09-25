@@ -1,0 +1,45 @@
+---
+---
+<section id="top" class="flex flex-col justify-center px-6 max-w-4xl mx-auto pt-32 pb-16">
+  <p id="boot-line" class="font-mono text-sm text-sage mb-4 blink-cursor">&nbsp;</p>
+  <h1 id="hero-name" class="font-display text-5xl sm:text-7xl text-ink opacity-0">
+    Kaleb Getnet
+  </h1>
+  <p id="hero-tag" class="font-body text-lg sm:text-xl text-ink/70 mt-4 max-w-xl opacity-0">
+    Backend-focused developer. Python, Django, and the quiet architecture behind the software you actually use.
+  </p>
+</section>
+
+<script>
+  const bootLines = [
+    "> booting kaleb.dev ...",
+    "> loading modules: python, django, postgres ...",
+    "> initializing profile ...",
+    "> welcome.",
+  ];
+  const bootEl = document.getElementById('boot-line');
+  const nameEl = document.getElementById('hero-name') as HTMLElement | null;
+  const tagEl = document.getElementById('hero-tag') as HTMLElement | null;
+  let i = 0;
+
+  function typeLine() {
+    if (i < bootLines.length) {
+      if (bootEl) bootEl.textContent = bootLines[i];
+      i++;
+      setTimeout(typeLine, 550);
+    } else {
+      bootEl?.classList.remove('blink-cursor');
+      if (nameEl) {
+        nameEl.classList.add('crt-flicker');
+        nameEl.style.opacity = '1';
+      }
+      setTimeout(() => {
+        if (tagEl) {
+          tagEl.style.transition = 'opacity 0.8s ease';
+          tagEl.style.opacity = '1';
+        }
+      }, 400);
+    }
+  }
+  typeLine();
+</script>
