@@ -1,0 +1,33 @@
+---
+// Replaces the fireflies with vertical streaming data nodes 
+// to fit the high-tech/hardware engineering aesthetic.
+---
+<div id="data-node-layer" aria-hidden="true"></div>
+
+<script>
+  // Cyan (Software) and Orange (Heat/Mechanical)
+  const COLORS = ['#00E5FF', '#00E5FF', '#FF5722']; 
+  const COUNT = 15;
+
+  function spawnNodes() {
+    const layer = document.getElementById('data-node-layer');
+    if (!layer) return;
+
+    for (let i = 0; i < COUNT; i++) {
+      const el = document.createElement('div');
+      el.className = 'data-node';
+      const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+      
+      el.style.setProperty('--glow', color);
+      el.style.left = `${Math.random() * 100}vw`;
+      
+      // Nodes travel at different speeds
+      el.style.animationDuration = `${3 + Math.random() * 5}s`;
+      el.style.animationDelay = `${Math.random() * -10}s`;
+      
+      layer.appendChild(el);
+    }
+  }
+
+  spawnNodes();
+</script>

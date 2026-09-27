@@ -1,24 +1,159 @@
 ---
 ---
-<footer id="contact" class="reveal max-w-4xl mx-auto px-6 py-16 border-t border-ink/10 mt-4">
-  <p class="font-mono text-xs text-sage mb-6">// contact</p>
-  <p class="font-display text-2xl text-ink mb-8">Let's talk.</p>
-  <div class="flex gap-6">
-    <a href="https://github.com/castle-dot" target="_blank" rel="noopener" aria-label="GitHub">
-      <i class="devicon-github-original tech-icon text-3xl"></i>
-    </a>
-    <a href="https://www.linkedin.com/in/kaleb-getnet-171a84313/" target="_blank" rel="noopener" aria-label="LinkedIn">
-      <i class="devicon-linkedin-plain tech-icon text-3xl"></i>
-    </a>
-    <a href="https://t.me/hinn_tt" target="_blank" rel="noopener" aria-label="Telegram">
-      <i class="devicon-telegram-original tech-icon text-3xl"></i>
-    </a>
-    <a href="mailto:castle2wonderland@gmail.com" aria-label="Email">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="tech-icon w-8 h-8">
-        <rect x="2.5" y="4.5" width="19" height="15" rx="1.5"/>
-        <path d="m3 6 9 6.5L21 6"/>
-      </svg>
-    </a>
+<footer id="contact" class="relative reveal max-w-4xl mx-auto px-6 pt-16 pb-10 mt-4 border-t border-white/10 overflow-hidden">
+
+  <!-- Background experiment: a quiet node network that links up as your cursor moves over it -->
+  <canvas id="contact-canvas" class="absolute inset-0 w-full h-full pointer-events-none opacity-80" aria-hidden="true"></canvas>
+
+  <div class="relative z-10">
+
+    <div class="space-y-4 mb-10">
+      <h2 class="font-display text-2xl md:text-3xl text-white font-medium">Let's talk</h2>
+      <p class="font-body text-sm text-slate-400 max-w-md leading-relaxed">
+        Best reached by email or Telegram — I usually reply within a day or two.
+      </p>
+    </div>
+
+    <div class="flex gap-5">
+      <a href="https://github.com/castle-dot" target="_blank" rel="noopener" aria-label="GitHub" class="magnetic-icon">
+        <i class="devicon-github-original tech-icon text-2xl"></i>
+      </a>
+      <a href="https://www.linkedin.com/in/kaleb-getnet-171a84313/" target="_blank" rel="noopener" aria-label="LinkedIn" class="magnetic-icon">
+        <i class="devicon-linkedin-plain tech-icon text-2xl"></i>
+      </a>
+      <a href="https://t.me/hinn_tt" target="_blank" rel="noopener" aria-label="Telegram" class="magnetic-icon">
+        <svg viewBox="0 0 24 24" class="tech-icon w-6 h-6" fill="currentColor">
+          <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.568 8.16c-.169 1.858-.896 6.728-1.267 8.928-.157.943-.465 1.26-.764 1.29-.646.06-1.137-.427-1.763-.838-.98-.646-1.535-1.048-2.487-1.68-1.098-.73-.387-1.13.24-1.785.164-.17 3.007-2.756 3.062-2.99.007-.03.013-.14-.052-.198-.065-.058-.161-.038-.23-.022-.098.022-1.66 1.055-4.688 3.1-.443.305-.845.453-1.205.445-.397-.008-1.16-.224-1.727-.409-.696-.226-1.25-.346-1.202-.73.025-.2.3-.406.826-.617 3.238-1.41 5.397-2.339 6.477-2.789 3.086-1.283 3.727-1.506 4.146-1.513.092-.001.298.021.431.129.112.09.143.212.158.298.017.098.027.303.011.467z"/>
+        </svg>
+      </a>
+      <a href="mailto:castle2wonderland@gmail.com" aria-label="Email" class="magnetic-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="tech-icon w-6 h-6">
+          <rect x="2.5" y="4.5" width="19" height="15" rx="1.5"/>
+          <path d="m3 6 9 6.5L21 6"/>
+        </svg>
+      </a>
+    </div>
+
+    <p class="font-body text-xs text-slate-600 mt-14">kaleb.dev — built with astro &amp; tailwind.</p>
+
   </div>
-  <p class="font-mono text-[11px] text-ink/30 mt-16">kaleb.dev — built with astro &amp; tailwind.</p>
 </footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) return;
+
+    // Same magnetic pull as the hero buttons, sized down for icons.
+    document.querySelectorAll<HTMLElement>('.magnetic-icon').forEach((icon) => {
+      const strength = 0.4;
+      const maxOffset = 8;
+      icon.addEventListener('mouseenter', () => {
+        icon.style.transition = 'transform 0.15s ease-out';
+      });
+      icon.addEventListener('mousemove', (e: MouseEvent) => {
+        const rect = icon.getBoundingClientRect();
+        const x = Math.max(-maxOffset, Math.min(maxOffset, (e.clientX - rect.left - rect.width / 2) * strength));
+        const y = Math.max(-maxOffset, Math.min(maxOffset, (e.clientY - rect.top - rect.height / 2) * strength));
+        icon.style.transform = `translate(${x}px, ${y}px)`;
+      });
+      icon.addEventListener('mouseleave', () => {
+        icon.style.transition = 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)';
+        icon.style.transform = 'translate(0, 0)';
+      });
+    });
+
+    // A small "connections" network in the background — nodes drift on their own,
+    // and link toward the cursor when it passes over the section.
+    const canvas = document.getElementById('contact-canvas') as HTMLCanvasElement | null;
+    const section = document.getElementById('contact');
+    if (!canvas || !section) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let width = 0, height = 0;
+    let mouse: { x: number; y: number } | null = null;
+
+    type Node = { x: number; y: number; vx: number; vy: number; accent: boolean };
+    let nodes: Node[] = [];
+
+    function resize() {
+      const rect = section!.getBoundingClientRect();
+      width = canvas!.width = rect.width;
+      height = canvas!.height = rect.height;
+      const count = width < 500 ? 16 : 28;
+      nodes = Array.from({ length: count }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.15,
+        vy: (Math.random() - 0.5) * 0.15,
+        accent: Math.random() < 0.12,
+      }));
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    section.addEventListener('mousemove', (e: MouseEvent) => {
+      const rect = canvas!.getBoundingClientRect();
+      mouse = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    });
+    section.addEventListener('mouseleave', () => { mouse = null; });
+
+    const linkDist = 110;
+    const mouseDist = 170;
+
+    function tick() {
+      ctx!.clearRect(0, 0, width, height);
+
+      // drift and wrap
+      for (const n of nodes) {
+        n.x += n.vx;
+        n.y += n.vy;
+        if (n.x < 0) n.x = width; if (n.x > width) n.x = 0;
+        if (n.y < 0) n.y = height; if (n.y > height) n.y = 0;
+      }
+
+      // node-to-node links
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const a = nodes[i], b = nodes[j];
+          const d = Math.hypot(a.x - b.x, a.y - b.y);
+          if (d < linkDist) {
+            ctx!.strokeStyle = `rgba(148, 163, 184, ${0.12 * (1 - d / linkDist)})`;
+            ctx!.lineWidth = 1;
+            ctx!.beginPath();
+            ctx!.moveTo(a.x, a.y);
+            ctx!.lineTo(b.x, b.y);
+            ctx!.stroke();
+          }
+        }
+      }
+
+      // cursor links
+      if (mouse) {
+        for (const n of nodes) {
+          const d = Math.hypot(mouse.x - n.x, mouse.y - n.y);
+          if (d < mouseDist) {
+            ctx!.strokeStyle = `rgba(0, 229, 255, ${0.35 * (1 - d / mouseDist)})`;
+            ctx!.lineWidth = 1;
+            ctx!.beginPath();
+            ctx!.moveTo(mouse.x, mouse.y);
+            ctx!.lineTo(n.x, n.y);
+            ctx!.stroke();
+          }
+        }
+      }
+
+      // nodes
+      for (const n of nodes) {
+        ctx!.fillStyle = n.accent ? 'rgba(0, 229, 255, 0.7)' : 'rgba(148, 163, 184, 0.5)';
+        ctx!.beginPath();
+        ctx!.arc(n.x, n.y, n.accent ? 1.8 : 1.4, 0, Math.PI * 2);
+        ctx!.fill();
+      }
+
+      requestAnimationFrame(tick);
+    }
+    tick();
+  });
+</script>

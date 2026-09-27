@@ -1,67 +1,186 @@
 ---
 ---
-<header class="fixed top-0 inset-x-0 z-40 backdrop-blur-sm bg-paper/80 border-b border-ink/10">
-  <nav class="max-w-4xl mx-auto flex items-center justify-between px-6 py-4">
-    <a href="#top" class="font-display text-lg text-ink">kaleb<span class="text-rose">.</span>dev</a>
+<header class="fixed top-0 inset-x-0 z-50 px-6 sm:px-8 border-b border-white/10 bg-black/70 backdrop-blur-2xl">
+  <nav class="max-w-7xl mx-auto flex items-center justify-between py-4">
 
-    <div class="hidden sm:flex items-center gap-6 font-body text-sm text-ink/80">
-      <a href="#about" class="hover:text-rose transition-colors">About</a>
-      <a href="#projects" class="hover:text-rose transition-colors">Projects</a>
-      <a href="#stack" class="hover:text-rose transition-colors">Stack</a>
-      <a href="#contact" class="hover:text-rose transition-colors">Contact</a>
-      <a href="/resume.pdf" download class="px-3 py-1.5 border border-ink/30 rounded-sm hover:bg-ink hover:text-paper transition-colors">Résumé</a>
+    <!-- Wordmark -->
+    <a href="#top" class="font-display text-base font-semibold text-white">
+      Kaleb Getnet
+    </a>
+
+    <!-- Desktop Navigation -->
+    <div class="hidden md:flex items-center gap-8 font-body text-sm">
+      <a href="#about" class="text-slate-400 hover:text-white transition-colors">About</a>
+      <a href="#projects" class="text-slate-400 hover:text-white transition-colors">Projects</a>
+      <a href="#stack" class="text-slate-400 hover:text-white transition-colors">Stack</a>
+      <a href="#contact" class="text-slate-400 hover:text-white transition-colors">Contact</a>
     </div>
 
-    <div class="flex items-center gap-2">
-      <button id="music-toggle" aria-label="Toggle background music" class="w-9 h-9 flex items-center justify-center rounded-full border border-ink/20 hover:border-rose transition-colors">
-        <svg id="icon-muted" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4">
-          <path d="M11 5 6 9H3v6h3l5 4V5Z"/><line x1="16" y1="9" x2="22" y2="15"/><line x1="22" y1="9" x2="16" y2="15"/>
-        </svg>
-        <svg id="icon-playing" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4 hidden">
-          <path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18 6a9 9 0 0 1 0 12"/>
-        </svg>
-      </button>
+    <!-- Controls -->
+    <div class="flex items-center gap-5">
 
-      <button id="menu-toggle" aria-label="Open menu" class="sm:hidden w-9 h-9 flex items-center justify-center rounded-full border border-ink/20 hover:border-rose transition-colors">
-        <svg id="icon-menu-open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4">
-          <line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/>
+      <!-- Audio toggle -->
+      <div class="relative flex items-center">
+        <button
+          id="music-toggle"
+          aria-label="Toggle ambient audio"
+          class="flex items-center gap-2 text-slate-400 hover:text-white transition-all duration-200 hover:scale-110 active:scale-90 cursor-pointer"
+        >
+          <span class="relative w-2.5 h-2.5 flex items-center justify-center">
+            <span class="absolute inset-0 rounded-full border border-current" id="spin-ring"></span>
+            <span class="w-1 h-1 rounded-full bg-current" id="core-dot"></span>
+          </span>
+          <span class="font-body text-xs hidden sm:inline" id="audio-label">Sound off</span>
+        </button>
+
+        <!-- Fly: only out and about while the audio is playing -->
+        <svg
+          id="fly"
+          viewBox="0 0 24 24"
+          class="w-3 h-3 text-slate-500 absolute left-1/2 top-1/2 -ml-1.5 -mt-1.5 opacity-0 pointer-events-none transition-opacity duration-300"
+        >
+          <ellipse cx="12" cy="13" rx="2.6" ry="4.6" fill="currentColor" />
+          <circle cx="12" cy="7.5" r="2" fill="currentColor" />
+          <path id="fly-wing-left" d="M9.5 10 Q3 6 6.5 13 Q8.3 12 9.5 10Z" fill="currentColor" opacity="0.55" />
+          <path id="fly-wing-right" d="M14.5 10 Q21 6 17.5 13 Q15.7 12 14.5 10Z" fill="currentColor" opacity="0.55" />
         </svg>
-        <svg id="icon-menu-close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4 hidden">
-          <line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/>
+      </div>
+
+      <!-- Resume -->
+      <a
+        href="/resume.pdf"
+        download
+        class="hidden sm:inline font-body text-sm text-white border-b border-white/30 hover:border-[var(--color-cyan)] transition-colors pb-0.5 cursor-pointer"
+      >
+        Resume
+      </a>
+
+      <!-- Mobile Menu Button -->
+      <button
+        id="menu-toggle"
+        aria-label="Toggle Navigation Menu"
+        class="md:hidden w-8 h-8 flex items-center justify-center text-white cursor-pointer"
+      >
+        <svg id="icon-menu-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+        <svg id="icon-menu-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path>
         </svg>
       </button>
     </div>
+
   </nav>
 
-  <div id="mobile-menu" class="hidden sm:hidden flex-col gap-1 px-6 pb-5 font-body text-sm text-ink/80 bg-paper/95 border-b border-ink/10">
-    <a href="#about" class="py-2 hover:text-rose transition-colors">About</a>
-    <a href="#projects" class="py-2 hover:text-rose transition-colors">Projects</a>
-    <a href="#stack" class="py-2 hover:text-rose transition-colors">Stack</a>
-    <a href="#contact" class="py-2 hover:text-rose transition-colors">Contact</a>
-    <a href="/resume.pdf" download class="mt-2 inline-block px-3 py-1.5 border border-ink/30 rounded-sm text-center hover:bg-ink hover:text-paper transition-colors">Résumé</a>
+  <!-- Mobile Dropdown -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden flex-col border-t border-white/10 py-4 font-body text-sm"
+  >
+    <a href="#about" class="py-3 text-slate-400 hover:text-white transition-colors border-b border-white/10">About</a>
+    <a href="#projects" class="py-3 text-slate-400 hover:text-white transition-colors border-b border-white/10">Projects</a>
+    <a href="#stack" class="py-3 text-slate-400 hover:text-white transition-colors border-b border-white/10">Stack</a>
+    <a href="#contact" class="py-3 text-slate-400 hover:text-white transition-colors border-b border-white/10">Contact</a>
+    <a href="/resume.pdf" download class="mt-3 text-center py-2.5 text-white border-b border-white/30">
+      Download resume
+    </a>
   </div>
 
   <audio id="bgm" src="/audio/ambient.mp3" loop preload="none"></audio>
 </header>
 
+<style>
+  #spin-ring {
+    border-style: dashed;
+  }
+  .playing #spin-ring {
+    animation: sciFiSpin 3s linear infinite;
+    border-color: var(--color-cyan);
+  }
+  .playing #core-dot {
+    background-color: var(--color-cyan);
+  }
+
+  @keyframes sciFiSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  #fly-wing-left, #fly-wing-right {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: flyWings 0.1s linear infinite;
+  }
+  @keyframes flyWings {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(0.25); }
+  }
+</style>
+
 <script>
   const btn = document.getElementById('music-toggle');
   const audio = document.getElementById('bgm') as HTMLAudioElement | null;
-  const iconMuted = document.getElementById('icon-muted');
-  const iconPlaying = document.getElementById('icon-playing');
+  const audioLabel = document.getElementById('audio-label');
   let playing = false;
+
+  // A fly that only comes out to buzz around the button while the audio plays.
+  const fly = document.getElementById('fly');
+  let flyX = 0, flyY = 0, targetX = 0, targetY = 0;
+  let flyRAF: number | null = null;
+
+  function pickFlyTarget() {
+    targetX = (Math.random() - 0.5) * 64; // roughly -32px..32px
+    targetY = (Math.random() - 0.5) * 36; // roughly -18px..18px
+  }
+  pickFlyTarget();
+
+  function animateFly() {
+    // ease toward the target, with a bit of jitter so it doesn't glide like a drone
+    flyX += (targetX - flyX) * 0.07;
+    flyY += (targetY - flyY) * 0.07;
+    const jitterX = (Math.random() - 0.5) * 3;
+    const jitterY = (Math.random() - 0.5) * 3;
+    const dx = targetX - flyX;
+    const dy = targetY - flyY;
+    const angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
+
+    if (fly) {
+      fly.style.transform = `translate(${flyX + jitterX}px, ${flyY + jitterY}px) rotate(${angle}deg)`;
+    }
+
+    // pick a new spot once it arrives, or every so often just change its mind
+    if ((Math.abs(dx) < 4 && Math.abs(dy) < 4) || Math.random() < 0.012) {
+      pickFlyTarget();
+    }
+
+    flyRAF = requestAnimationFrame(animateFly);
+  }
+
+  function startFly() {
+    if (fly) fly.style.opacity = '1';
+    if (flyRAF === null) animateFly();
+  }
+  function stopFly() {
+    if (fly) fly.style.opacity = '0';
+    if (flyRAF !== null) {
+      cancelAnimationFrame(flyRAF);
+      flyRAF = null;
+    }
+  }
 
   btn?.addEventListener('click', () => {
     if (!audio) return;
     if (!playing) {
       audio.volume = 0.35;
       audio.play().catch(() => {});
-      iconMuted?.classList.add('hidden');
-      iconPlaying?.classList.remove('hidden');
+      btn.classList.add('playing', 'text-[var(--color-cyan)]');
+      if (audioLabel) audioLabel.textContent = 'Sound on';
+      startFly();
     } else {
       audio.pause();
-      iconPlaying?.classList.add('hidden');
-      iconMuted?.classList.remove('hidden');
+      btn.classList.remove('playing', 'text-[var(--color-cyan)]');
+      if (audioLabel) audioLabel.textContent = 'Sound off';
+      stopFly();
     }
     playing = !playing;
   });

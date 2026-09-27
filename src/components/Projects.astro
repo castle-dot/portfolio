@@ -2,61 +2,141 @@
 const projects = [
   {
     title: "Kiray",
-    description: "Live project — replace this with a one-line description of what it does.",
+    description: "A rental platform for people to find and rent properties, with a focus on user experience and ease of use.",
     image: "/images/projects/kiray.jpg",
     live: "https://kiray.pages.dev",
     github: null,
   },
   {
     title: "Scholarship Board",
-    description: "Live project — replace this with a one-line description of what it does.",
+    description: "A platform for managing and applying for scholarships, with a focus on simplifying the application process.",
     image: "/images/projects/scholarship-board.jpg",
     live: "https://kaleb1get.pythonanywhere.com",
     github: null,
   },
   {
     title: "Social Media",
-    description: "Replace this with a one-line description of what it does.",
+    description: "A social media platform.",
     image: "/images/projects/social-media.jpg",
     live: null,
     github: "https://github.com/castle-dot/social-media",
   },
   {
     title: "Make A Wish",
-    description: "Replace this with a one-line description of what it does.",
+    description: "A platform for users to submit and vote on wishes.",
     image: "/images/projects/make-a-wish.jpg",
     live: null,
     github: "https://github.com/castle-dot/makeawish",
   },
   {
     title: "Before Google",
-    description: "Replace this with a one-line description of what it does.",
+    description: "A place to answer questions before googling them.",
     image: "/images/projects/before-google.jpg",
     live: null,
     github: "https://github.com/castle-dot/Before_Google",
   },
   {
     title: "Heaven's Form",
-    description: "Replace this with a one-line description of what it does.",
+    description: "Fun and interactive web app that allows users to register to heaven..:)))",
     image: "/images/projects/heavens-form.jpg",
     live: null,
     github: "https://github.com/castle-dot/Heaven-s-Form",
   },
 ];
 ---
-<section id="projects" class="reveal max-w-4xl mx-auto px-6 py-14">
-  <p class="font-mono text-xs text-sage mb-8">// projects</p>
-  <div class="project-grid grid sm:grid-cols-2 gap-10">
-    {projects.map((p) => (
-      <div class="polaroid">
-        <img src={p.image} alt={p.title} class="w-full aspect-[4/3] object-cover" style="filter: grayscale(8%) sepia(8%);" />
-        <p class="font-display text-lg mt-3 polaroid-title">{p.title}</p>
-        <p class="font-body text-sm mt-1 polaroid-desc">{p.description}</p>
-        <div class="flex gap-4 mt-2 font-mono text-xs">
-          {p.live && <a href={p.live} target="_blank" rel="noopener" class="polaroid-link">&rarr; live</a>}
-          {p.github && <a href={p.github} target="_blank" rel="noopener" class="polaroid-link">&rarr; github</a>}
+<section id="projects" class="relative max-w-5xl mx-auto px-6 py-24 z-10">
+
+  <!-- Section Header -->
+  <h2 class="font-display text-3xl md:text-4xl text-white font-medium mb-16 reveal">
+    Projects
+  </h2>
+
+  <!-- 3D Stacking Container -->
+  <div class="relative flex flex-col gap-[10vh] pb-[10vh]" id="project-stack">
+    {projects.map((p, index) => (
+      <div 
+        class="project-card sticky glass-card flex flex-col md:flex-row shadow-2xl transition-all duration-300 origin-top overflow-hidden border border-white/10 bg-black/60 backdrop-blur-xl rounded-2xl"
+        style={`top: calc(6rem + ${index * 1.5}rem); z-index: ${index};`}
+      >
+        
+        <!-- Index header (Mobile only) -->
+        <div class="md:hidden px-5 py-3 border-b border-white/10 flex justify-between items-center">
+          <span class="font-body text-xs text-slate-500">0{index + 1}</span>
+        </div>
+
+        <!-- Image Panel -->
+        <div class="w-full md:w-5/12 aspect-video md:aspect-auto md:min-h-[350px] relative overflow-hidden group">
+          <div class="absolute inset-0 bg-[var(--color-cyan)] mix-blend-overlay opacity-20 group-hover:opacity-0 transition-opacity duration-500 z-10 pointer-events-none"></div>
+          <img 
+            src={p.image} 
+            alt={p.title} 
+            class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100" 
+          />
+        </div>
+
+        <!-- Data Panel -->
+        <div class="w-full md:w-7/12 p-8 flex flex-col justify-center">
+          <div class="hidden md:flex justify-end items-center mb-6 pb-2 border-b border-white/10">
+            <span class="font-body text-xs text-slate-500">0{index + 1}</span>
+          </div>
+
+          <h3 class="font-display text-3xl font-semibold text-white mb-4">
+            {p.title}
+          </h3>
+          
+          <p class="font-body text-sm text-slate-400 leading-relaxed mb-8">
+            {p.description}
+          </p>
+          
+          <!-- Action Links -->
+          <div class="flex flex-wrap gap-6 mt-auto font-body text-sm">
+            {p.live && (
+              <a href={p.live} target="_blank" rel="noopener" class="text-[var(--color-orange)] hover:text-white transition-colors flex items-center gap-2 group">
+                <span class="w-2 h-2 rounded-full bg-[var(--color-orange)] group-hover:animate-ping"></span>
+                View live
+              </a>
+            )}
+            {p.github && (
+              <a href={p.github} target="_blank" rel="noopener" class="text-[var(--color-cyan)] hover:text-white transition-colors flex items-center gap-2 group">
+                <span class="w-2 h-2 rounded-full bg-[var(--color-cyan)] group-hover:animate-ping"></span>
+                View source
+              </a>
+            )}
+          </div>
         </div>
       </div>
     ))}
   </div>
 </section>
+
+<script>
+  // Depth Scaling Logic for Stacking Cards
+  document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.project-card');
+    
+    // Listen to scroll to scale background cards down slightly
+    window.addEventListener('scroll', () => {
+      cards.forEach((card, index) => {
+        const rect = card.getBoundingClientRect();
+        const baseTop = 96 + (index * 24); // Matches the inline calc() in px
+        
+        // If the card has hit its sticky position, start scaling down as user scrolls further
+        if (rect.top <= baseTop + 1) { 
+          // Calculate how far past the sticky point we have scrolled
+          const distancePast = Math.max(0, baseTop - rect.top);
+          // Gently scale down (max scale down to 0.9)
+          const scale = Math.max(0.9, 1 - (distancePast / 4000));
+          // Darken the card as it recedes
+          const opacity = Math.max(0.4, 1 - (distancePast / 1500));
+          
+          (card as HTMLElement).style.transform = `scale(${scale})`;
+          (card as HTMLElement).style.filter = `brightness(${opacity})`;
+        } else {
+          // Reset when scrolling back up
+          (card as HTMLElement).style.transform = 'scale(1)';
+          (card as HTMLElement).style.filter = 'brightness(1)';
+        }
+      });
+    }, { passive: true });
+  });
+</script>

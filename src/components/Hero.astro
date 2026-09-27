@@ -1,45 +1,187 @@
 ---
 ---
-<section id="top" class="flex flex-col justify-center px-6 max-w-4xl mx-auto pt-32 pb-16">
-  <p id="boot-line" class="font-mono text-sm text-sage mb-4 blink-cursor">&nbsp;</p>
-  <h1 id="hero-name" class="font-display text-5xl sm:text-7xl text-ink opacity-0">
-    Kaleb Getnet
-  </h1>
-  <p id="hero-tag" class="font-body text-lg sm:text-xl text-ink/70 mt-4 max-w-xl opacity-0">
-    Backend-focused developer. Python, Django, and the quiet architecture behind the software you actually use.
-  </p>
+<section id="top" class="relative min-h-[90vh] flex items-center px-6 pt-32 pb-20 max-w-7xl mx-auto z-10">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-end w-full">
+
+    <!-- Left: Name, role, and a plain-spoken intro -->
+    <div class="col-span-1 lg:col-span-8 space-y-10">
+
+      <!-- Status line -->
+      <div class="flex items-center gap-2.5 opacity-0 reveal-hero">
+        <span class="relative flex h-2 w-2">
+          <span class="absolute inline-flex h-full w-full rounded-full bg-[var(--color-cyan)] opacity-60 animate-ping"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-cyan)]"></span>
+        </span>
+        <span class="font-body text-sm text-slate-400">Open for backend &amp; full-stack work</span>
+      </div>
+
+      <!-- Name + role -->
+      <div class="space-y-3 opacity-0 reveal-hero">
+        <h1 class="font-display text-6xl sm:text-7xl lg:text-[6.5rem] font-bold leading-[0.92] text-white tracking-tight">
+          Kaleb Getnet
+        </h1>
+        <p class="font-display text-xl sm:text-2xl text-slate-400">
+          Full-stack developer, <span class="text-white">Python &amp; Django</span> first.
+        </p>
+      </div>
+
+      <!-- Intro -->
+      <p class="font-body text-lg text-slate-300 leading-relaxed max-w-md opacity-0 reveal-hero">
+        I design the data model and the API first, then carry that same thinking
+        into the interface — usually React or Next.js — so the two ends of an
+        app actually agree with each other.
+      </p>
+
+      <!-- Actions: magnetic buttons that decode into their label on hover -->
+      <div class="flex flex-wrap items-center gap-5 pt-2 opacity-0 reveal-hero">
+        <a
+          href="#projects"
+          class="magnetic-btn magnetic-btn-primary relative inline-flex items-center justify-center px-8 py-3.5 rounded-full border border-white/25 overflow-hidden"
+        >
+          <span class="magnetic-fill absolute inset-0 bg-white scale-x-0 origin-left transition-transform duration-500 ease-out"></span>
+          <span
+            class="magnetic-label relative z-10 font-body text-sm text-white transition-colors duration-300"
+            data-scramble="Explore the projects"
+          >Explore the projects</span>
+        </a>
+
+        <a
+          href="#contact"
+          class="magnetic-btn magnetic-btn-secondary relative inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full border border-white/15"
+        >
+          <span
+            class="magnetic-label relative z-10 font-body text-sm text-slate-300 transition-colors duration-300"
+            data-scramble="Get in touch"
+          >Get in touch</span>
+          <span class="magnetic-arrow relative z-10 w-3.5 h-3.5 text-slate-500 transition-all duration-300">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-full h-full">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h13M13 6l6 6-6 6" />
+            </svg>
+          </span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Right: A plain panel of focus areas, grounded in real work -->
+    <div class="col-span-1 lg:col-span-4 opacity-0 reveal-hero">
+      <div class="border-t border-white/15 pt-6 space-y-6">
+
+        <div class="space-y-1.5">
+          <h3 class="font-display text-white text-base font-semibold">Backend engineering</h3>
+          <p class="font-body text-sm text-slate-400 leading-relaxed">
+            Relational schemas, authentication, and REST APIs built to hold up under real traffic.
+          </p>
+        </div>
+
+        <div class="space-y-1.5 pt-6 border-t border-white/10">
+          <h3 class="font-display text-white text-base font-semibold">Client interfaces</h3>
+          <p class="font-body text-sm text-slate-400 leading-relaxed">
+            React and Next.js front ends, styled with Tailwind, wired directly to the APIs above.
+          </p>
+        </div>
+
+        <div class="space-y-1.5 pt-6 border-t border-white/10">
+          <h3 class="font-display text-white text-base font-semibold">Recently</h3>
+          <p class="font-body text-sm text-slate-400 leading-relaxed">
+            Shipping <span class="text-white">Kiray</span>, a rental listings marketplace built for Addis Ababa.
+          </p>
+        </div>
+
+        <div class="pt-6 border-t border-white/10">
+          <p class="font-body text-sm text-slate-500">
+            Based in Addis Ababa.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
 </section>
 
-<script>
-  const bootLines = [
-    "> booting kaleb.dev ...",
-    "> loading modules: python, django, postgres ...",
-    "> initializing profile ...",
-    "> welcome.",
-  ];
-  const bootEl = document.getElementById('boot-line');
-  const nameEl = document.getElementById('hero-name') as HTMLElement | null;
-  const tagEl = document.getElementById('hero-tag') as HTMLElement | null;
-  let i = 0;
-
-  function typeLine() {
-    if (i < bootLines.length) {
-      if (bootEl) bootEl.textContent = bootLines[i];
-      i++;
-      setTimeout(typeLine, 550);
-    } else {
-      bootEl?.classList.remove('blink-cursor');
-      if (nameEl) {
-        nameEl.classList.add('crt-flicker');
-        nameEl.style.opacity = '1';
-      }
-      setTimeout(() => {
-        if (tagEl) {
-          tagEl.style.transition = 'opacity 0.8s ease';
-          tagEl.style.opacity = '1';
-        }
-      }, 400);
-    }
+<style>
+  .magnetic-btn-primary:hover .magnetic-fill {
+    transform: scaleX(1);
   }
-  typeLine();
+  .magnetic-btn-primary:hover .magnetic-label {
+    color: #07090F;
+  }
+  .magnetic-btn-secondary:hover .magnetic-label {
+    color: white;
+  }
+  .magnetic-btn-secondary:hover {
+    border-color: var(--color-cyan);
+  }
+  .magnetic-btn-secondary:hover .magnetic-arrow {
+    color: var(--color-cyan);
+    transform: translateX(3px);
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const els = document.querySelectorAll('.reveal-hero');
+    els.forEach((el, i) => {
+      (el as HTMLElement).style.transition = 'opacity 1s ease, transform 1s cubic-bezier(0.2, 0.8, 0.2, 1)';
+      (el as HTMLElement).style.transform = 'translateY(24px)';
+      setTimeout(() => {
+        (el as HTMLElement).style.opacity = '1';
+        (el as HTMLElement).style.transform = 'translateY(0)';
+      }, 120 + i * 140);
+    });
+
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) return;
+
+    // Magnetic pull: buttons drift a little toward the cursor, then spring back.
+    document.querySelectorAll<HTMLElement>('.magnetic-btn').forEach((btn) => {
+      const strength = 0.3;
+      const maxOffset = 10;
+      btn.addEventListener('mouseenter', () => {
+        btn.style.transition = 'transform 0.15s ease-out';
+      });
+      btn.addEventListener('mousemove', (e: MouseEvent) => {
+        const rect = btn.getBoundingClientRect();
+        const x = Math.max(-maxOffset, Math.min(maxOffset, (e.clientX - rect.left - rect.width / 2) * strength));
+        const y = Math.max(-maxOffset, Math.min(maxOffset, (e.clientY - rect.top - rect.height / 2) * strength));
+        btn.style.transform = `translate(${x}px, ${y}px)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transition = 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)';
+        btn.style.transform = 'translate(0, 0)';
+      });
+    });
+
+    // Decode effect: label scrambles through random characters, then resolves.
+    const scrambleChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ01<>/{}—+*';
+    document.querySelectorAll<HTMLElement>('[data-scramble]').forEach((label) => {
+      const original = label.dataset.scramble || label.textContent || '';
+      let raf: number | null = null;
+      label.addEventListener('mouseenter', () => {
+        if (raf) cancelAnimationFrame(raf);
+        const totalFrames = 14;
+        let frame = 0;
+        const step = () => {
+          let out = '';
+          for (let i = 0; i < original.length; i++) {
+            if (original[i] === ' ' || i < (frame / totalFrames) * original.length) {
+              out += original[i];
+            } else {
+              out += scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+            }
+          }
+          label.textContent = out;
+          frame++;
+          if (frame <= totalFrames) {
+            raf = requestAnimationFrame(step);
+          } else {
+            label.textContent = original;
+            raf = null;
+          }
+        };
+        step();
+      });
+    });
+  });
 </script>
